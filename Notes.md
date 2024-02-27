@@ -2,7 +2,7 @@
 
 # Found bugs/issues:  
 
-Forced to use "not-so-secret" password during sign up for the first user  
+Forced to use "not-so-secret" password during sign-up for the first user  
 
 ### When creating a user on the "people" page  
 
@@ -23,7 +23,7 @@ search bar throwing fatal error -------------------------- FIXED (was due to pre
 needs reloading before being visible  
 when clicked: fatal error on a *toSring* method -------------------------- FIXED (/app/src/scenes/project/view.js -> line 74)  
 when clicked: name not displayed -> data is undefined -------------------------- FIXED (/api/src/controllers/project.js -> lines 22 and 23)  
-when clicked: thus the edit panel can't load (*id* is undefined) -------------------------- FIXED (was due to previosu bug, fixed in the api)  
+when clicked: thus the edit panel can't load (*id* is undefined) -------------------------- FIXED (was due to previous bug, fixed in the api)  
 
 --------------------------------------------------------------------------------------------------  
 
