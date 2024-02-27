@@ -23,7 +23,8 @@ export default function ProjectView() {
 
   useEffect(() => {
     (async () => {
-      const { data: u } = await api.get(`/project/${id}`);
+      const { data: u } = await api.get(`/project/${id}`); // used to receive an array from the API which din't match with data: u. See /api/src/controllers/project.js -> lines 22 & 23
+      console.log("Received data = "+ u.name) //debug
       setProject(u);
     })();
   }, []);
@@ -60,7 +61,7 @@ export default function ProjectView() {
 }
 
 const ProjectDetails = ({ project }) => {
-  console.log(project);
+  console.log("Project :" + project);
   return (
     <div>
       <div className="flex flex-wrap p-3">
@@ -70,7 +71,7 @@ const ProjectDetails = ({ project }) => {
               <div className="flex justify-between gap-2">
                 <div className="flex gap-20">
                   <span className="w-fit text-[20px] text-[#0C1024] font-bold">Nom du projet : </span>
-                  <span className="w-fit text-[20px] text-[#0C1024] font-bold">{project.name.toString()}</span>
+                  <span className="w-fit text-[20px] text-[#0C1024] font-bold">{project.name}</span> {/* removed "toString()" method. The API already sends a String (see /api/models/projects.js -> name */}
                 </div>
                 <div className="flex flex-1 flex-column items-end gap-3">
                   <Links project={project} />
@@ -120,7 +121,16 @@ const Budget = ({ project }) => {
   const width = (100 * total) / budget_max_monthly || 0;
 
   if (!project.budget_max_monthly) return <div className="mt-2 text-[24px] text-[#212325] font-semibold">{total.toFixed(2)}€</div>;
-  return <ProgressBar percentage={width} max={budget_max_monthly} value={total} />;
+  
+  return (
+    <>
+      <span className="text-[18px] font-semibold text-[#707070]"> {total}€</span>
+      {total > budget_max_monthly && (
+        <p style={{ color: "red", fontWeight: "bold" }}> OVER BUDGET! </p>
+      )}
+      <ProgressBar percentage={width} max={budget_max_monthly} value={total} />
+    </>
+  );
 };
 
 const Activities = ({ project }) => {
